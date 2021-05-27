@@ -9,7 +9,7 @@
         "data-destroy": "node seeder -d",
         "start": "node server",
         "server": "nodemon server",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "concurrently \"node seeder\" \"mocha\""
     },
     "author": "Ashwin Sajiv",
     "license": "ISC",
@@ -22,7 +22,10 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
+        "chai": "^4.3.4",
+        "chai-http": "^4.3.0",
         "concurrently": "^6.1.0",
+        "mocha": "^8.4.0",
         "nodemon": "^2.0.7"
     }
 }

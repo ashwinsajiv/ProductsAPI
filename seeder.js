@@ -13,12 +13,15 @@ connectDB()
 
 const importData = async() => {
     try {
-        await Product.deleteMany()
-        await ProductOption.deleteMany()
-        await Product.insertMany(products)
-        await ProductOption.insertMany(productOptions)
-
-        console.log('Data Imported!'.green.inverse)
+        // Seeder is set to run only on dev mode where Mongo is run locally
+        // If needed, change this to `prod`
+        if (process.env.NODE_ENV == 'dev') {
+            await Product.deleteMany()
+            await ProductOption.deleteMany()
+            await Product.insertMany(products)
+            await ProductOption.insertMany(productOptions)
+            console.log('Data Imported!'.green.inverse)
+        }
         process.exit()
     } catch (error) {
         console.error(`${error}`.red.inverse)

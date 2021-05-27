@@ -7,8 +7,8 @@ import {
     updateProductById,
     deleteProductById,
     getProductOptions,
-    createProductOption,
     getProductOptionById,
+    createProductOption,
     updateProductOptionById,
     deleteProductOptionById
 } from '../controllers/productController.js'

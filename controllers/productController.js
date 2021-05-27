@@ -98,6 +98,18 @@ const getProductOptions = asyncHandler(async(req, res) => {
     res.json(productOptions)
 })
 
+// @desc    Fetch a product option by Id.
+// @route   GET /products/:id/options/:optionId
+const getProductOptionById = asyncHandler(async(req, res) => {
+    const productOptions = await ProductOption.find({ Id: req.params.optionId, ProductId: req.params.id })
+    if (productOptions) {
+        res.json(productOptions)
+    } else {
+        res.status(404)
+        throw new Error('Product option not found')
+    }
+})
+
 // @desc    Create a product option.
 // @route   POST /products/:id/options
 const createProductOption = asyncHandler(async(req, res) => {
@@ -113,18 +125,6 @@ const createProductOption = asyncHandler(async(req, res) => {
     })
     const createdProductOption = await productOption.save()
     res.status(201).json(createdProductOption)
-})
-
-// @desc    Fetch a product option by Id.
-// @route   GET /products/:id/options/:optionId
-const getProductOptionById = asyncHandler(async(req, res) => {
-    const productOptions = await ProductOption.find({ Id: req.params.optionId, ProductId: req.params.id })
-    if (productOptions) {
-        res.json(productOptions)
-    } else {
-        res.status(404)
-        throw new Error('Product option not found')
-    }
 })
 
 // @desc    Update a product option by Id.
@@ -166,8 +166,8 @@ export {
     updateProductById,
     deleteProductById,
     getProductOptions,
-    createProductOption,
     getProductOptionById,
+    createProductOption,
     updateProductOptionById,
     deleteProductOptionById
 }
