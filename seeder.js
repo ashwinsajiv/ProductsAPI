@@ -13,9 +13,9 @@ connectDB()
 
 const importData = async() => {
     try {
-        // Seeder is set to run only on dev mode where Mongo is run locally
+        // Seeder is set to run only on local or docker mode where Mongo is run locally
         // If needed, change this to `prod`
-        if (process.env.NODE_ENV == 'dev') {
+        if (process.env.MODE != 'prod') {
             await Product.deleteMany()
             await ProductOption.deleteMany()
             await Product.insertMany(products)

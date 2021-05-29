@@ -6,7 +6,7 @@ import server from '../server.js'
 chai.should()
 chai.use(chaiHttp)
 
-// Only to run in dev mode, switching to prod would not 
+// Only to run in local mode, switching to prod would not 
 // run the seeder.js script to avoid overwritting data.
 describe('GET /products', () => {
     it('Should GET all the products', (done) => {

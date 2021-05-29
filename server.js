@@ -24,7 +24,7 @@ app.use(notFound)
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000
-const NODE_ENV = process.env.NODE_ENV || "dev"
-app.listen(PORT, console.log(`Server running on: localhost:${PORT} in ${NODE_ENV} mode`.yellow.bold))
+const MODE = process.env.MODE || "local"
+app.listen(PORT, console.log(`Server running on: localhost:${PORT} in ${MODE} mode`.yellow.bold))
 
 export default app
