@@ -5,7 +5,7 @@ import server from '../server.js'
 chai.should()
 chai.use(chaiHttp)
 const ProductId = 'DE1287C0-4B15-4A7B-9D8A-DD21B3CAFEC3'
-const OptionId = "4E2BC5F2-699A-4C42-802E-CE4B4D2AC0EF"
+const OptionId = '4E2BC5F2-699A-4C42-802E-CE4B4D2AC0EF'
 
 describe('GET /products/:id/options', () => {
     it('Should GET all the product options', (done) => {

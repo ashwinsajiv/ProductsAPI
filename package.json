@@ -9,7 +9,7 @@
         "data-destroy": "node seeder -d",
         "start": "node server",
         "server": "nodemon server",
-        "test": "concurrently \"node seeder\" \"mocha\""
+        "test": "concurrently \"node seeder\" \"mocha\" \"node seeder\""
     },
     "author": "Ashwin Sajiv",
     "license": "ISC",
@@ -19,6 +19,8 @@
         "express": "^4.17.1",
         "express-async-handler": "^1.1.4",
         "mongoose": "^5.12.11",
+        "swagger-jsdoc": "^7.0.0-rc.6",
+        "swagger-ui-express": "^4.1.6",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
