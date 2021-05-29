@@ -35,3 +35,7 @@ The test folder contains all the API tests. We make use of Chai (an assertion li
 ## Documentation
 
 To ease up and make documentation prettier, two node libraries have been used. They are `swagger-jsdoc` and `swagger-ui-express`. Using these, documentation of APIs in openAPI format can be generated from comments. Check `./controllers/*.js` for comments holding information about each of the endpoint, which is stripped and documented at `http://localhost/docs` or `http://localhost:3000/docs`.
+
+## Postman
+
+Checkout `./postman/postman_collections` for all the postman requests involving all the endpoints.
