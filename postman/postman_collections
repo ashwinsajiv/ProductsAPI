@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "93d285d2-ed15-4371-987a-9f63c4750af5",
+		"name": "ProductsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "All products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?name=samsung",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "samsung"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/8F2E9176-35EE-4F0A-AE55-83023D2DB1A3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"8F2E9176-35EE-4F0A-AE55-83023D2DB1A3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Temp\",\r\n    \"Description\": \"Temp\",\r\n    \"Price\": 1,\r\n    \"DeliveryPrice\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/4cb10d26-d2b9-4dc8-95ba-7a8c7f914b23",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"4cb10d26-d2b9-4dc8-95ba-7a8c7f914b23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"iphone 121212\",\r\n    \"Description\": \"temp12\",\r\n    \"Price\": 23,\r\n    \"DeliveryPrice\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/8ed39c90-7bb3-4e0a-8848-1efe92042fd8",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"8ed39c90-7bb3-4e0a-8848-1efe92042fd8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Option",
+			"item": [
+				{
+					"name": "All product options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/8F2E9176-35EE-4F0A-AE55-83023D2DB1A3/options",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"8F2E9176-35EE-4F0A-AE55-83023D2DB1A3",
+								"options"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product option by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/DE1287C0-4B15-4A7B-9D8A-DD21B3CAFEC3/options/4E2BC5F2-699A-4C42-802E-CE4B4D2AC0EF",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"DE1287C0-4B15-4A7B-9D8A-DD21B3CAFEC3",
+								"options",
+								"4E2BC5F2-699A-4C42-802E-CE4B4D2AC0EF"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product option",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProductId\": \"8F2E9176-35EE-4F0A-AE55-83023D2DB1A3\",\r\n    \"Name\": \"Temp Option\",\r\n    \"Description\": \"Temp Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/dfdf/options",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"dfdf",
+								"options"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product option",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Changed Option\",\r\n    \"Description\": \"Changed Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/8F2E9176-35EE-4F0A-AE55-83023D2DB1A3/options/b0d3be39-eadd-4a82-a9e4-25176f02ce15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"8F2E9176-35EE-4F0A-AE55-83023D2DB1A3",
+								"options",
+								"b0d3be39-eadd-4a82-a9e4-25176f02ce15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product option",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/8F2E9176-35EE-4F0A-AE55-83023D2DB1A3/options/b0d3be39-eadd-4a82-a9e4-25176f02ce15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								"8F2E9176-35EE-4F0A-AE55-83023D2DB1A3",
+								"options",
+								"b0d3be39-eadd-4a82-a9e4-25176f02ce15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
