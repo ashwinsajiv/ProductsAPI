@@ -2,7 +2,7 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Products and Options',
+            title: 'ProductsAPI',
             description: 'Products and Options APIs definition',
             version: '1.0.0',
             author: {
