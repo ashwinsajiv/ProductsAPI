@@ -7,6 +7,7 @@ import productOptions from './data/productOptions.js'
 import Product from './models/productModel.js'
 import ProductOption from './models/productOptionModel.js'
 import connectDB from './config/db.js'
+import logger from './logger/logger.js'
 
 dotenv.config()
 connectDB()
@@ -20,11 +21,11 @@ const importData = async() => {
             await ProductOption.deleteMany()
             await Product.insertMany(products)
             await ProductOption.insertMany(productOptions)
-            console.log('Data Imported!'.green.inverse)
+            logger.info('Data Imported!'.green.inverse)
         }
         process.exit()
     } catch (error) {
-        console.error(`${error}`.red.inverse)
+        logger.error(`${error}`.red.inverse)
         process.exit(1)
     }
 }
@@ -34,10 +35,10 @@ const destroyData = async() => {
         await Product.deleteMany()
         await ProductOption.deleteMany()
 
-        console.log('Data Destroyed!'.red.inverse)
+        logger.info('Data Destroyed!'.red.inverse)
         process.exit()
     } catch (error) {
-        console.error(`${error}`.red.inverse)
+        logger.error(`${error}`.red.inverse)
         process.exit(1)
     }
 }

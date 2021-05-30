@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
 import ProductOption from '../models/productOptionModel.js'
 import { v4 as uuidv4 } from 'uuid';
+import logger from '../logger/logger.js';
 
 /**
  * @openapi
@@ -47,6 +48,7 @@ const getProducts = asyncHandler(async(req, res) => {
         const products = await Product.find({})
         res.json(products)
     }
+    logger.info('Products fetched.')
 })
 
 /**
@@ -72,8 +74,10 @@ const getProducts = asyncHandler(async(req, res) => {
 const getProductById = asyncHandler(async(req, res) => {
     const product = await Product.findOne({ Id: req.params.id })
     if (product) {
+        logger.info('Product fetched.')
         res.json(product)
     } else {
+        logger.error('Product not found')
         res.status(404)
         throw new Error('Product not found')
     }
@@ -98,23 +102,32 @@ const getProductById = asyncHandler(async(req, res) => {
  *                  application/json:
  *                      schema: 
  *                          $ref: '#/components/schemas/Product'
+ *          '400':
+ *              description: Bad request body.
  */
 const createProduct = asyncHandler(async(req, res) => {
-    const {
-        Name,
-        Description,
-        Price,
-        DeliveryPrice
-    } = req.body
-    const product = new Product({
-        Id: uuidv4(),
-        Name: Name,
-        Description: Description,
-        Price: Price,
-        DeliveryPrice: DeliveryPrice
-    })
-    const createdProduct = await product.save()
-    res.status(201).json(createdProduct)
+    if (req.body) {
+        const {
+            Name,
+            Description,
+            Price,
+            DeliveryPrice
+        } = req.body
+        const product = new Product({
+            Id: uuidv4(),
+            Name: Name,
+            Description: Description,
+            Price: Price,
+            DeliveryPrice: DeliveryPrice
+        })
+        logger.info('Products created.')
+        const createdProduct = await product.save()
+        res.status(201).json(createdProduct)
+    } else {
+        logger.error('Bad request body')
+        res.status(400)
+        throw new Error('Bad request body')
+    }
 })
 
 /**
@@ -141,27 +154,37 @@ const createProduct = asyncHandler(async(req, res) => {
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/Product'
+ *          '400':
+ *              description: Bad request body.
  *          '404':
  *              description: Product not found.
  */
 const updateProductById = asyncHandler(async(req, res) => {
-    const {
-        Name,
-        Description,
-        Price,
-        DeliveryPrice
-    } = req.body
-    const product = await Product.findOne({ Id: req.params.id })
-    if (product) {
-        product.Name = Name
-        product.Description = Description
-        product.Price = Price
-        product.DeliveryPrice = DeliveryPrice
-        const updatedProduct = await product.save()
-        res.json(updatedProduct)
+    if (req.body) {
+        const {
+            Name,
+            Description,
+            Price,
+            DeliveryPrice
+        } = req.body
+        const product = await Product.findOne({ Id: req.params.id })
+        if (product) {
+            product.Name = Name
+            product.Description = Description
+            product.Price = Price
+            product.DeliveryPrice = DeliveryPrice
+            const updatedProduct = await product.save()
+            logger.info('Product updated.')
+            res.json(updatedProduct)
+        } else {
+            logger.error()
+            res.status(404)
+            throw new Error('Product not found')
+        }
     } else {
-        res.status(404)
-        throw new Error('Product not found')
+        logger.error('Bad request body')
+        res.status(400)
+        throw new Error('Bad request body')
     }
 })
 
@@ -197,9 +220,11 @@ const deleteProductById = asyncHandler(async(req, res) => {
         }
     })
     if (product) {
+        logger.info('Product removed.')
         await product.remove()
         res.json({ message: 'Product and options removed' })
     } else {
+        logger.error('Product not found')
         res.status(404)
         throw new Error('Product not found')
     }
@@ -228,6 +253,7 @@ const deleteProductById = asyncHandler(async(req, res) => {
 const getProductOptions = asyncHandler(async(req, res) => {
     const productOptions = await ProductOption.find({ ProductId: req.params.id })
     res.json(productOptions)
+    logger.info('Product options fetched.')
 })
 
 /**
@@ -257,8 +283,10 @@ const getProductOptions = asyncHandler(async(req, res) => {
 const getProductOptionById = asyncHandler(async(req, res) => {
     const productOptions = await ProductOption.find({ Id: req.params.optionId, ProductId: req.params.id })
     if (productOptions) {
+        logger.info('Product option fetched.')
         res.json(productOptions)
     } else {
+        logger.error('Product option not found')
         res.status(404)
         throw new Error('Product option not found')
     }
@@ -288,29 +316,38 @@ const getProductOptionById = asyncHandler(async(req, res) => {
  *                  application/json:
  *                      schema: 
  *                          $ref: '#/components/schemas/ProductOption'
+ *          '400':
+ *              description: Bad request body.
  *          '404':
  *              description: Product not found.
  */
 const createProductOption = asyncHandler(async(req, res) => {
-    const {
-        Name,
-        Description
-    } = req.body
-    const product = await Product.find({ Id: req.params.id })
-    if (product.length == 1) {
-        const productOption = new ProductOption({
-            Id: uuidv4(),
-            ProductId: req.params.id,
-            Name: Name,
-            Description: Description,
-        })
-        const createdProductOption = await productOption.save()
-        res.status(201).json(createdProductOption)
+    if (req.body) {
+        const {
+            Name,
+            Description
+        } = req.body
+        const product = await Product.find({ Id: req.params.id })
+        if (product.length == 1) {
+            const productOption = new ProductOption({
+                Id: uuidv4(),
+                ProductId: req.params.id,
+                Name: Name,
+                Description: Description,
+            })
+            logger.info('Product option created.')
+            const createdProductOption = await productOption.save()
+            res.status(201).json(createdProductOption)
+        } else {
+            logger.error('Product not found')
+            res.status(404)
+            throw new Error('Product not found')
+        }
     } else {
-        res.status(404)
-        throw new Error('Product not found')
+        logger.error('Bad request body')
+        res.status(400)
+        throw new Error('Bad request body')
     }
-
 })
 
 /**
@@ -341,23 +378,33 @@ const createProductOption = asyncHandler(async(req, res) => {
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/ProductOption'
+ *          '400':
+ *              description: Bad request body.
  *          '404':
  *              description: Product option not found.
  */
 const updateProductOptionById = asyncHandler(async(req, res) => {
-    const {
-        Name,
-        Description
-    } = req.body
-    const productOption = await ProductOption.findOne({ Id: req.params.optionId, ProductId: req.params.id })
-    if (productOption) {
-        productOption.Name = Name
-        productOption.Description = Description
-        const updatedProductOption = await productOption.save()
-        res.json(updatedProductOption)
+    if (req.body) {
+        const {
+            Name,
+            Description
+        } = req.body
+        const productOption = await ProductOption.findOne({ Id: req.params.optionId, ProductId: req.params.id })
+        if (productOption) {
+            productOption.Name = Name
+            productOption.Description = Description
+            logger.info('Product option updated.')
+            const updatedProductOption = await productOption.save()
+            res.json(updatedProductOption)
+        } else {
+            logger.error('Product option not found')
+            res.status(404)
+            throw new Error('Product option not found')
+        }
     } else {
-        res.status(404)
-        throw new Error('Product option not found')
+        logger.error('Bad request body')
+        res.status(400)
+        throw new Error('Bad request body')
     }
 })
 
@@ -391,9 +438,11 @@ const updateProductOptionById = asyncHandler(async(req, res) => {
 const deleteProductOptionById = asyncHandler(async(req, res) => {
     const productOption = await ProductOption.findOne({ Id: req.params.optionId, ProductId: req.params.id })
     if (productOption) {
+        logger.info('Product option removed.')
         await productOption.remove()
         res.json({ message: 'Product option removed' })
     } else {
+        logger.error('Product option not found')
         res.status(404)
         throw new Error('Product option not found')
     }

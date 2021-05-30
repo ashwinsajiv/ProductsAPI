@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import logger from '../logger/logger.js'
 
 const connectDB = async() => {
     try {
@@ -22,9 +23,9 @@ const connectDB = async() => {
                 useCreateIndex: true
             })
         }
-        console.log(`MongoDB connected: ${conn.connection.host}`.cyan.underline)
+        logger.info(`MongoDB connected: ${conn.connection.host}`.cyan.underline)
     } catch (error) {
-        console.error(`Error: ${error.message}`.red.underline.bold)
+        logger.error(`Error: ${error.message}`.red.underline.bold)
         process.exit(1)
     }
 }

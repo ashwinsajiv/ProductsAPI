@@ -15,6 +15,12 @@ To avoid installing mongo exclusively, make use of the docker setup explained be
 
 Though this app is production ready, there is no benefit for now in running the app in `prod` mode. Set the `MODE` environment variable to either `local` or `docker`.
 
+### Production
+
+To run the application in production mode, you will need to setup a cluster and database in remote mongodb and get the connecting url (format specified below). Set the following environment variables:
+`MODE=prod`
+`MONGO_URI_PROD=mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]`
+
 ### Local
 
 To run the application locally, install mongo in your local machine and set the following environment variables:
@@ -24,7 +30,7 @@ Run `npm install` and `npm run server` to start the server on http://localhost/3
 
 ### Docker
 
-To run the application in a container, install docker. Once docker is installed, run `docker-compose up` from the root of the project to start the server on http://localhost.
+To run the application in a container, install docker. Once docker is installed, run `docker-compose up` from the root of the project to start the server on http://localhost. The environment variables are already set in the docker specifications.
 
 ##### Note: The seeder script needs to be ran once at the start when testing locally. For docker, the seeder script runs at the start of running a container.
 
